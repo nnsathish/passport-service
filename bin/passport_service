@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+
+require 'passport_service'
+require 'optionparser'
+
+params = {}
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: passport_service [options]\nDefaults: passport_service -a1=15 -a2=10 -a3=12 -n180"
+  opts.on("-ad", "--agents-doc-stage NO", Integer) do |ad|
+    params[:ad] = ad
+  end
+  opts.on("-ap", "--agents-police-stage NO", Integer) do |ap|
+    params[:ap] = ap
+  end
+  opts.on("-ab", "--agents-biometric-stage NO", Integer) do |ab|
+    params[:ab] = ab
+  end
+  opts.on("-n", "--no-of-applicants NO", Integer) do |n|
+    params[:n] = n
+  end
+end.parse!
+
+PassportService.run(params) # Issue with OptionParser!
